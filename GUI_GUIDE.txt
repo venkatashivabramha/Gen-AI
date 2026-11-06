@@ -1,0 +1,145 @@
+═══════════════════════════════════════════════════════════════
+    HOW TO FIND "GENERATE FROM TEMPLATE" BUTTON
+═══════════════════════════════════════════════════════════════
+
+STEP 1: FIND THE GUI WINDOW
+═══════════════════════════════════════════════════════════════
+Look for window title:
+   "Business Plan Generator - AI Powered"
+
+Check your Windows taskbar at the bottom of your screen!
+
+
+STEP 2: LOOK AT THE LEFT SIDEBAR
+═══════════════════════════════════════════════════════════════
+
+The window is divided into TWO PARTS:
+
+┌─────────────────────────────────────────────────────────────┐
+│                                                               │
+│  ┌─────────┐    ┌──────────────────────────────────────┐   │
+│  │         │    │                                       │   │
+│  │  LEFT   │    │         RIGHT MAIN AREA              │   │
+│  │ SIDEBAR │    │                                       │   │
+│  │         │    │    (This changes based on which       │   │
+│  │         │    │     button you click on the left)     │   │
+│  │         │    │                                       │   │
+│  └─────────┘    └──────────────────────────────────────┘   │
+│                                                               │
+└─────────────────────────────────────────────────────────────┘
+
+
+STEP 3: CLICK THE TEMPLATE BUTTON
+═══════════════════════════════════════════════════════════════
+
+In the LEFT SIDEBAR, you'll see 3 buttons stacked vertically:
+
+    ┌────────────────┐
+    │  📝 Form Input │  ← Button 1 (ignore this)
+    └────────────────┘
+
+    ┌────────────────┐
+    │ 🤖 AI Descrip. │  ← Button 2 (ignore this)
+    └────────────────┘
+
+    ┌────────────────┐
+    │  📋 Template   │  ← Button 3 (CLICK THIS ONE!)
+    └────────────────┘
+
+
+CLICK THE THIRD BUTTON: "📋 Template"
+
+
+STEP 4: NOW LOOK AT THE RIGHT SIDE
+═══════════════════════════════════════════════════════════════
+
+After clicking "📋 Template", the RIGHT side will change to show:
+
+    ┌─────────────────────────────────────────────────┐
+    │                                                  │
+    │  Select Business Type:                          │
+    │  ┌──────────────────────────────────────────┐  │
+    │  │ Technology Startup                    ▼  │  │
+    │  └──────────────────────────────────────────┘  │
+    │                                                  │
+    │  Business Name:                                 │
+    │  ┌──────────────────────────────────────────┐  │
+    │  │                                           │  │
+    │  └──────────────────────────────────────────┘  │
+    │                                                  │
+    │  Location:                                      │
+    │  ┌──────────────────────────────────────────┐  │
+    │  │                                           │  │
+    │  └──────────────────────────────────────────┘  │
+    │                                                  │
+    │  Specific Focus:                                │
+    │  ┌──────────────────────────────────────────┐  │
+    │  │                                           │  │
+    │  └──────────────────────────────────────────┘  │
+    │                                                  │
+    │  Output Formats:                                │
+    │  ☑ PDF    ☐ HTML    ☐ DOCX                    │
+    │                                                  │
+    │  ┌──────────────────────────────────────────┐  │
+    │  │                                           │  │
+    │  │    📋 Generate from Template             │  │
+    │  │                                           │  │
+    │  └──────────────────────────────────────────┘  │
+    │           ↑                                     │
+    │       THIS IS THE BUTTON!                      │
+    │                                                  │
+    └─────────────────────────────────────────────────┘
+
+
+STEP 5: FILL IN THE FIELDS
+═══════════════════════════════════════════════════════════════
+
+Before clicking the button, fill in:
+
+1. Business Name: TechFlow AI Solutions
+2. Location: San Francisco, California
+3. Specific Focus: AI-powered project management tools
+
+Then check the PDF checkbox: ☑
+
+
+STEP 6: CLICK THE BUTTON!
+═══════════════════════════════════════════════════════════════
+
+The button is:
+- Big and blue/purple colored
+- At the BOTTOM of the form
+- Says: "📋 Generate from Template"
+- Has the 📋 emoji on it
+
+CLICK IT!
+
+Wait 2-3 minutes for your business plan to generate.
+
+
+QUICK TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════
+
+Problem: "I don't see this button!"
+Solution: Make sure you clicked "📋 Template" in the LEFT sidebar first!
+
+Problem: "The button says something different"
+Solution: You're in the wrong mode. Click "📋 Template" on the left.
+
+Problem: "I can't find the GUI window"
+Solution: Press Alt+Tab to see all open windows, or check taskbar.
+
+
+SUMMARY
+═══════════════════════════════════════════════════════════════
+
+The button location:
+  LEFT sidebar → Click "📋 Template" 
+  → RIGHT side changes 
+  → Scroll to bottom 
+  → Big button "📋 Generate from Template"
+
+You MUST click "📋 Template" in the sidebar FIRST before the 
+button appears on the right side!
+
+═══════════════════════════════════════════════════════════════
