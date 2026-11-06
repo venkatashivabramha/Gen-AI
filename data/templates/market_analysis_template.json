@@ -1,0 +1,42 @@
+{
+  "section": "Market Analysis",
+  "industries": {
+    "technology": {
+      "template": "## Industry Overview\n\nThe {industry_name} sector is experiencing {growth_rate}% annual growth, driven by {key_drivers}. The global market size reached ${market_size}B in {current_year}, with projections to reach ${future_market_size}B by {target_year}.\n\n## Target Market\n\n### Demographics\n- **Age Range**: {age_range}\n- **Income Level**: ${income_range}\n- **Geographic Focus**: {geographic_focus}\n- **Education**: {education_level}\n\n### Psychographics\n- **Values**: {customer_values}\n- **Pain Points**: {pain_points}\n- **Buying Behavior**: {buying_behavior}\n\n## Market Size & Growth\n\n| Metric | Current ({current_year}) | Projected ({target_year}) | CAGR |\n|--------|----------|-----------|------|\n| Market Size | ${market_size}B | ${future_market_size}B | {growth_rate}% |\n| Total Addressable Market | {tam} | {future_tam} | {tam_cagr}% |\n| Serviceable Market | {sam} | {future_sam} | {sam_cagr}% |\n\n## Competitive Landscape\n\n### Key Competitors\n{competitors_list}\n\n### Market Share Distribution\n- Leader: {leader_name} ({leader_share}%)\n- Challenger: {challenger_name} ({challenger_share}%)\n- Niche Players: {niche_players}%\n- New Entrants: {new_entrants}%\n\n## Market Trends\n\n1. **{trend_1_name}**: {trend_1_description}\n2. **{trend_2_name}**: {trend_2_description}\n3. **{trend_3_name}**: {trend_3_description}\n4. **{trend_4_name}**: {trend_4_description}\n5. **{trend_5_name}**: {trend_5_description}\n\n## Market Entry Strategy\n\n### Phase 1: Initial Entry\n- Target: {initial_target}\n- Strategy: {initial_strategy}\n- Timeline: {initial_timeline}\n\n### Phase 2: Expansion\n- Target: {expansion_target}\n- Strategy: {expansion_strategy}\n- Timeline: {expansion_timeline}\n\n### Phase 3: Scale\n- Target: {scale_target}\n- Strategy: {scale_strategy}\n- Timeline: {scale_timeline}",
+      "default_values": {
+        "growth_rate": "15-25",
+        "market_size": "50-200",
+        "future_market_size": "100-500",
+        "tam_cagr": "12-18",
+        "sam_cagr": "10-15"
+      }
+    },
+    "marketplace": {
+      "template": "## Industry Overview\n\nThe {business_model} marketplace sector is experiencing explosive growth at {growth_rate}% annually. The gig economy, valued at ${gig_economy_size}T in {current_year}, is driving demand for platform-mediated services.\n\n## Target Market Segments\n\n### Service Providers\n- **Profile**: {provider_profile}\n- **Motivation**: {provider_motivation}\n- **Pain Points**: {provider_pain_points}\n\n### Service Consumers\n- **Profile**: {consumer_profile}\n- **Motivation**: {consumer_motivation}\n- **Pain Points**: {consumer_pain_points}\n\n## Market Size & Opportunity\n\n| Category | Value | Growth Rate |\n|----------|-------|-------------|\n| Total Addressable Market | ${tam}B | {tam_growth}% |\n| Serviceable Available Market | ${sam}B | {sam_growth}% |\n| Target Market Share (Year 3) | {target_share}% | - |\n| Projected Revenue (Year 3) | ${projected_revenue}M | - |\n\n## Competitive Analysis\n\n### Direct Competitors\n{direct_competitors}\n\n### Indirect Competitors\n{indirect_competitors}\n\n### Competitive Advantages\n1. {advantage_1}\n2. {advantage_2}\n3. {advantage_3}\n4. {advantage_4}\n5. {advantage_5}\n\n## Market Dynamics\n\n### Growth Drivers\n- **Digital Adoption**: {digital_adoption_rate}% of target users now use mobile-first solutions\n- **Trust Economy**: Platform-mediated transactions growing at {trust_growth}% annually\n- **Freelance Shift**: {freelance_percentage}% of workforce now engages in gig work\n\n### Barriers to Entry\n- Network effects favor early movers\n- Trust and reputation systems take time to build\n- Regulatory compliance varies by geography\n\n## Go-to-Market Strategy\n\n### Phase 1: Launch (Months 1-6)\n- **Focus**: {launch_focus}\n- **Geography**: {launch_geography}\n- **Target**: {launch_target} active users\n\n### Phase 2: Growth (Months 7-18)\n- **Focus**: {growth_focus}\n- **Geography**: {growth_geography}\n- **Target**: {growth_target} active users\n\n### Phase 3: Scale (Months 19-36)\n- **Focus**: {scale_focus}\n- **Geography**: {scale_geography}\n- **Target**: {scale_target} active users",
+      "default_values": {
+        "growth_rate": "20-30",
+        "gig_economy_size": "1.2-1.5",
+        "tam_growth": "15-20",
+        "sam_growth": "12-18",
+        "target_share": "2-5",
+        "digital_adoption_rate": "75-85",
+        "trust_growth": "18-25",
+        "freelance_percentage": "35-45"
+      }
+    },
+    "saas": {
+      "template": "## Industry Overview\n\nThe SaaS (Software as a Service) market continues robust expansion, projected to reach ${market_size}B by {target_year}, growing at {cagr}% CAGR. Cloud adoption and digital transformation initiatives drive sustained demand.\n\n## Target Customer Segments\n\n### Segment 1: {segment_1_name}\n- **Company Size**: {segment_1_size}\n- **Annual Revenue**: ${segment_1_revenue}\n- **Key Decision Makers**: {segment_1_decision_makers}\n- **Budget Authority**: ${segment_1_budget}\n- **Pain Points**: {segment_1_pain_points}\n\n### Segment 2: {segment_2_name}\n- **Company Size**: {segment_2_size}\n- **Annual Revenue**: ${segment_2_revenue}\n- **Key Decision Makers**: {segment_2_decision_makers}\n- **Budget Authority**: ${segment_2_budget}\n- **Pain Points**: {segment_2_pain_points}\n\n## Market Analysis\n\n| Metric | Value | Note |\n|--------|-------|------|\n| Global SaaS Market | ${global_market}B | {current_year} |\n| Target Vertical Market | ${vertical_market}B | Growing {vertical_growth}% YoY |\n| Average Deal Size | ${deal_size}k | Annual contract value |\n| Customer Lifetime Value | ${ltv}k | 36-month average |\n| CAC Payback Period | {cac_payback} months | Industry standard: 12-18 |\n\n## Competitive Landscape\n\n### Market Leaders\n1. **{leader_1}**: {leader_1_description}\n2. **{leader_2}**: {leader_2_description}\n3. **{leader_3}**: {leader_3_description}\n\n### Our Differentiation\n- **{diff_1_title}**: {diff_1_description}\n- **{diff_2_title}**: {diff_2_description}\n- **{diff_3_title}**: {diff_3_description}\n\n## Market Trends\n\n### Macro Trends\n1. **{trend_1}**: {trend_1_impact}\n2. **{trend_2}**: {trend_2_impact}\n3. **{trend_3}**: {trend_3_impact}\n\n### Technology Trends\n- AI/ML Integration: {ai_adoption}% of SaaS products now include AI features\n- API-First Architecture: {api_priority}% priority for integration capabilities\n- Mobile-First: {mobile_usage}% of users access via mobile devices\n\n## Go-to-Market Motion\n\n### Sales Model: {sales_model}\n- **ACV Range**: ${acv_min}k - ${acv_max}k\n- **Sales Cycle**: {sales_cycle} days\n- **Close Rate**: {close_rate}%\n\n### Customer Acquisition Channels\n1. **{channel_1}** ({channel_1_percent}% of pipeline)\n2. **{channel_2}** ({channel_2_percent}% of pipeline)\n3. **{channel_3}** ({channel_3_percent}% of pipeline)\n4. **{channel_4}** ({channel_4_percent}% of pipeline)",
+      "default_values": {
+        "market_size": "300-500",
+        "cagr": "18-22",
+        "vertical_growth": "15-20",
+        "cac_payback": "10-14",
+        "ai_adoption": "65-75",
+        "api_priority": "80-90",
+        "mobile_usage": "55-65",
+        "sales_cycle": "60-90",
+        "close_rate": "20-30"
+      }
+    }
+  }
+}

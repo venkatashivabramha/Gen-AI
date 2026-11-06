@@ -1,0 +1,107 @@
+{
+  "section": "SWOT Analysis",
+  "business_types": {
+    "marketplace_platform": {
+      "strengths": [
+        "Low-cost, scalable digital platform with minimal physical infrastructure",
+        "Network effects create virtuous cycle (more suppliers attract more buyers and vice versa)",
+        "Transparent, predictable revenue model ({commission_rate}% commission)",
+        "Mobile-first experience appeals to {mobile_percentage}% of target demographic",
+        "Data-driven insights from aggregated transactions enable personalized matching",
+        "Asset-light model enables rapid geographic expansion"
+      ],
+      "weaknesses": [
+        "Brand recognition minimal as new market entrant",
+        "Limited service diversification creates revenue concentration risk",
+        "Quality control challenges across distributed freelance network",
+        "Payment processing friction and fees erode margins",
+        "Limited marketing budget constrains user acquisition velocity",
+        "Platform reliability and uptime critical to trust - any downtime is catastrophic"
+      ],
+      "opportunities": [
+        "Rising demand for {service_type} driven by {market_driver}",
+        "Strategic partnerships with {partner_type} create steady client pipeline",
+        "AI and automation features differentiate user experience",
+        "Expansion into adjacent creative markets ({adjacent_markets})",
+        "Subscription or premium tiers increase revenue per user",
+        "International expansion to emerging markets with underserved demand"
+      ],
+      "threats": [
+        "Intense competition from established platforms ({competitor_examples})",
+        "Regulatory changes in data privacy and gig worker classification",
+        "Economic downturns reduce discretionary event spending",
+        "Cybersecurity breaches damage trust and regulatory compliance",
+        "Platform disintermediation risk as buyers/sellers connect directly",
+        "Commoditization pressure drives commission rates down over time"
+      ]
+    },
+    "saas_b2b": {
+      "strengths": [
+        "Recurring revenue model provides predictable cash flow",
+        "Low marginal cost of serving additional customers drives strong unit economics",
+        "Cloud-native architecture enables rapid feature deployment",
+        "{unique_tech} creates defensible competitive moat",
+        "Strong customer retention ({retention_rate}% annual) indicates product-market fit",
+        "API-first design facilitates ecosystem integration"
+      ],
+      "weaknesses": [
+        "Long sales cycles ({sales_cycle} months) delay revenue recognition",
+        "High customer acquisition costs (${cac}k) require efficient funnel",
+        "Feature parity pressure from competitors necessitates continuous R&D investment",
+        "Limited brand recognition in crowded market",
+        "Dependency on third-party infrastructure ({cloud_provider}) creates risk",
+        "Small customer base creates revenue concentration risk"
+      ],
+      "opportunities": [
+        "{industry_vertical} digital transformation driving {market_growth}% market growth",
+        "Expansion into adjacent verticals ({adjacent_verticals})",
+        "Partnership channel with {partner_types} accelerates distribution",
+        "AI/ML features create upsell opportunities and competitive differentiation",
+        "International expansion to {target_markets}",
+        "Strategic acquisition potential from larger platforms seeking {capability}"
+      ],
+      "threats": [
+        "Aggressive competition from well-funded incumbents ({incumbent_names})",
+        "Economic downturn reduces IT budgets and elongates sales cycles",
+        "Data privacy regulations ({regulations}) increase compliance costs",
+        "Technology disruption from {disruptive_tech} could obsolete current approach",
+        "Talent acquisition challenges in competitive market",
+        "Customer churn risk if fail to demonstrate ROI within {roi_period} months"
+      ]
+    },
+    "ecommerce_retail": {
+      "strengths": [
+        "Direct-to-consumer model captures full margin",
+        "Digital-native brand resonates with {target_demographic}",
+        "Low overhead compared to brick-and-mortar retail",
+        "Data-driven personalization increases conversion rates",
+        "Scalable fulfillment through {fulfillment_model}",
+        "Strong social media presence with {follower_count} engaged followers"
+      ],
+      "weaknesses": [
+        "High customer acquisition costs ({cac}$) in competitive digital advertising market",
+        "Thin margins ({margin_percentage}%) require volume to achieve profitability",
+        "Inventory risk and working capital requirements",
+        "Limited brand loyalty and high customer churn",
+        "Dependency on third-party platforms ({platform_dependencies})",
+        "Logistics and shipping complexity affects customer experience"
+      ],
+      "opportunities": [
+        "E-commerce market growing {ecommerce_growth}% annually",
+        "Expansion to {expansion_categories} product categories",
+        "Subscription box model creates recurring revenue stream",
+        "International markets ({target_countries}) offer untapped demand",
+        "Partnerships with complementary brands for co-marketing",
+        "Wholesale or B2B channel diversifies revenue"
+      ],
+      "threats": [
+        "Amazon and large marketplaces dominate online shopping",
+        "Rising digital advertising costs reduce marketing ROI",
+        "Supply chain disruptions impact inventory availability",
+        "Economic downturn reduces discretionary consumer spending",
+        "Negative reviews or social media crisis damages brand",
+        "Payment fraud and chargebacks erode profitability"
+      ]
+    }
+  }
+}

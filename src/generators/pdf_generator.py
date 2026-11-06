@@ -198,6 +198,46 @@ class PDFGenerator:
         elements.append(title_para)
         elements.append(Spacer(1, 0.2*inch))
         
+        # Sanitize content - remove problematic XML/HTML tags from AI output
+        content = self._sanitize_text(content)
+        
+        # Section content
+        paragraphs = content.split('\n\n')
+        for para in paragraphs:
+            if para.strip():
+                # Clean and format paragraph
+                para_text = para.replace('\n', '<br/>')
+                elements.append(Paragraph(para_text, self.styles['CustomBody']))
+                elements.append(Spacer(1, 0.15*inch))
+        
+        return elements
+    
+    def _sanitize_text(self, text: str) -> str:
+        """Sanitize text by removing/escaping problematic XML tags from AI output"""
+        import re
+        
+        # Remove XML-like tags that aren't valid ReportLab markup
+        # Keep only: <b>, <i>, <u>, <br/>, and escape everything else
+        text = re.sub(r'<para[^>]*>', '', text)
+        text = re.sub(r'</para>', '', text)
+        text = re.sub(r'<Segment[^>]*>', '', text)
+        text = re.sub(r'</Segment>', '', text)
+        
+        # Escape special XML characters in content
+        text = text.replace('&', '&amp;')
+        text = text.replace('<', '&lt;').replace('>', '&gt;')
+        
+        # But restore the valid tags we want to keep
+        text = text.replace('&lt;b&gt;', '<b>').replace('&lt;/b&gt;', '</b>')
+        text = text.replace('&lt;i&gt;', '<i>').replace('&lt;/i&gt;', '</i>')
+        text = text.replace('&lt;u&gt;', '<u>').replace('&lt;/u&gt;', '</u>')
+        text = text.replace('&lt;br/&gt;', '<br/>').replace('&lt;br&gt;', '<br/>')
+        
+        # Remove any remaining malformed tags
+        text = re.sub(r'[|]+[-]+[|]+', '', text)  # Remove table-like separators
+        
+        return text
+        
         # Section content
         paragraphs = content.split('\n\n')
         for para in paragraphs:
