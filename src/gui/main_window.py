@@ -108,12 +108,13 @@ class BusinessPlanGeneratorApp(ctk.CTk):
         settings_label.grid(row=7, column=0, padx=20, pady=(20, 10))
         
         # LLM Provider selection
-        self.llm_var = ctk.StringVar(value="openai")
+        self.llm_var = ctk.StringVar(value="groq")
         llm_menu = ctk.CTkOptionMenu(
             self.sidebar,
-            values=["openai", "anthropic"],
+            values=["groq", "openrouter", "anthropic", "openai", "huggingface"],
             variable=self.llm_var,
-            font=ctk.CTkFont(size=12)
+            font=ctk.CTkFont(size=12),
+            width=180
         )
         llm_menu.grid(row=8, column=0, padx=20, pady=10)
         

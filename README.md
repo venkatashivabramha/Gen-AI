@@ -25,7 +25,8 @@ An **AI-powered desktop application** for generating comprehensive, professional
 - **DOCX**: Editable Word documents
 
 ### 🤖 Advanced AI Integration
-- **Multiple LLM Providers**: OpenAI (GPT-4) & Anthropic (Claude)
+- **Multiple LLM Providers**: OpenAI, Anthropic, Groq, OpenRouter, HuggingFace
+- **FREE API Options**: Use Groq, OpenRouter, or HuggingFace for FREE! 🎉
 - **MCP Support**: Model Context Protocol for enhanced capabilities
 - **Intelligent Content**: Context-aware, industry-specific insights
 
@@ -33,6 +34,18 @@ An **AI-powered desktop application** for generating comprehensive, professional
 - **Dark/Light Theme**: Comfortable viewing in any environment
 - **Responsive Design**: Clean, intuitive user interface
 - **Real-time Progress**: Track generation status
+
+## 💡 FREE API Options Available! 
+
+**No credit card required!** Choose from these FREE AI providers:
+
+- **Groq** ⚡ (Recommended - fastest, free, easy)
+- **OpenRouter** 🎨 (Multiple free models)
+- **HuggingFace** ❤️ (Open source models)
+
+**See [FREE_API_GUIDE.md](docs/FREE_API_GUIDE.md) for setup instructions!**
+
+---
 
 ## 🚀 Quick Start
 
@@ -43,9 +56,10 @@ An **AI-powered desktop application** for generating comprehensive, professional
    setup.bat
    ```
 
-2. **Configure API Key**:
-   - Edit `.env` file
-   - Add your OpenAI or Anthropic API key
+2. **Configure API Key** (Choose ONE):
+   - **FREE Option**: Get a Groq key from https://console.groq.com/keys
+   - **Paid Option**: OpenAI or Anthropic key
+   - Edit `.env` file and add your key
 
 3. **Launch Application**:
    ```powershell

@@ -2,12 +2,23 @@
 
 Get up and running with the Business Plan Generator in 5 minutes!
 
+## 🎉 NEW: FREE API Options!
+
+You don't need a paid API! **FREE options available**:
+- ⚡ **Groq** (Recommended - fastest & free)  
+- 🎨 **OpenRouter** (Multiple free models)
+- ❤️ **HuggingFace** (Open source)
+
+**See [docs/FREE_API_GUIDE.md](docs/FREE_API_GUIDE.md) for setup!**
+
+---
+
 ## 🎯 Prerequisites
 
 - Windows PC
 - Python 3.10 or higher
 - Internet connection
-- OpenAI or Anthropic API key
+- API key (FREE options available - see above!)
 
 ## 📦 Installation (2 minutes)
 
@@ -17,7 +28,7 @@ Get up and running with the Business Plan Generator in 5 minutes!
 # 1. Run the setup script
 setup.bat
 
-# 2. Edit .env file and add your API key
+# 2. Edit .env file and add your API key (Groq is FREE!)
 notepad .env
 
 # 3. Launch the application
@@ -44,7 +55,17 @@ python src/main.py
 
 ## 🔑 Get API Key (1 minute)
 
-### OpenAI (Recommended)
+### Groq ⚡ (FREE - Recommended)
+1. Go to: https://console.groq.com/keys
+2. Sign up (no credit card needed!)
+3. Click "Create API Key"
+4. Copy the key to `.env`:
+   ```env
+   GROQ_API_KEY=your_key_here
+   DEFAULT_LLM_PROVIDER=groq
+   ```
+
+### OpenAI 💰 (PAID)
 1. Go to: https://platform.openai.com/api-keys
 2. Sign up/login
 3. Click "Create new secret key"

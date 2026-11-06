@@ -1,6 +1,6 @@
 """
 LLM Manager for AI-powered content generation
-Supports OpenAI, Anthropic, and local models
+Supports OpenAI, Anthropic, OpenRouter, Groq, and other providers
 """
 import os
 from typing import Optional, Dict, Any, List
@@ -54,6 +54,96 @@ class OpenAIProvider(BaseLLMProvider):
             return f"Error generating content: {str(e)}"
 
 
+class OpenRouterProvider(BaseLLMProvider):
+    """OpenRouter API provider (FREE options available)"""
+    
+    def __init__(self, api_key: str, model: str = "meta-llama/llama-3.2-3b-instruct:free"):
+        if not OpenAI:
+            raise ImportError("OpenAI package not installed. Run: pip install openai")
+        # OpenRouter uses OpenAI-compatible API
+        self.client = OpenAI(
+            api_key=api_key,
+            base_url="https://openrouter.ai/api/v1"
+        )
+        self.model = model
+    
+    def generate(self, prompt: str, **kwargs) -> str:
+        """Generate text using OpenRouter API (many free models!)"""
+        try:
+            response = self.client.chat.completions.create(
+                model=kwargs.get("model", self.model),
+                messages=[
+                    {"role": "system", "content": "You are an expert business consultant helping to create comprehensive business plans."},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=kwargs.get("temperature", 0.7),
+                max_tokens=kwargs.get("max_tokens", 2000)
+            )
+            return response.choices[0].message.content
+        except Exception as e:
+            return f"Error generating content: {str(e)}"
+
+
+class GroqProvider(BaseLLMProvider):
+    """Groq API provider (FREE and FAST!)"""
+    
+    def __init__(self, api_key: str, model: str = "llama-3.1-8b-instant"):
+        if not OpenAI:
+            raise ImportError("OpenAI package not installed. Run: pip install openai")
+        # Groq uses OpenAI-compatible API
+        self.client = OpenAI(
+            api_key=api_key,
+            base_url="https://api.groq.com/openai/v1"
+        )
+        self.model = model
+    
+    def generate(self, prompt: str, **kwargs) -> str:
+        """Generate text using Groq API (FREE!)"""
+        try:
+            response = self.client.chat.completions.create(
+                model=kwargs.get("model", self.model),
+                messages=[
+                    {"role": "system", "content": "You are an expert business consultant helping to create comprehensive business plans."},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=kwargs.get("temperature", 0.7),
+                max_tokens=kwargs.get("max_tokens", 2000)
+            )
+            return response.choices[0].message.content
+        except Exception as e:
+            return f"Error generating content: {str(e)}"
+
+
+class HuggingFaceProvider(BaseLLMProvider):
+    """HuggingFace Inference API provider (FREE tier available)"""
+    
+    def __init__(self, api_key: str, model: str = "mistralai/Mixtral-8x7B-Instruct-v0.1"):
+        if not OpenAI:
+            raise ImportError("OpenAI package not installed. Run: pip install openai")
+        # HuggingFace can use OpenAI-compatible interface
+        self.client = OpenAI(
+            api_key=api_key,
+            base_url="https://api-inference.huggingface.co/v1"
+        )
+        self.model = model
+    
+    def generate(self, prompt: str, **kwargs) -> str:
+        """Generate text using HuggingFace API"""
+        try:
+            response = self.client.chat.completions.create(
+                model=kwargs.get("model", self.model),
+                messages=[
+                    {"role": "system", "content": "You are an expert business consultant helping to create comprehensive business plans."},
+                    {"role": "user", "content": prompt}
+                ],
+                temperature=kwargs.get("temperature", 0.7),
+                max_tokens=kwargs.get("max_tokens", 2000)
+            )
+            return response.choices[0].message.content
+        except Exception as e:
+            return f"Error generating content: {str(e)}"
+
+
 class AnthropicProvider(BaseLLMProvider):
     """Anthropic Claude API provider"""
     
@@ -90,6 +180,7 @@ class LLMManager:
     
     def _initialize_provider(self, provider: str) -> Optional[BaseLLMProvider]:
         """Initialize the specified LLM provider"""
+        
         if provider == "openai":
             if not OPENAI_API_KEY:
                 raise ValueError("OpenAI API key not found in environment variables")
@@ -100,8 +191,29 @@ class LLMManager:
                 raise ValueError("Anthropic API key not found in environment variables")
             return AnthropicProvider(ANTHROPIC_API_KEY, DEFAULT_MODEL)
         
+        elif provider == "openrouter":
+            api_key = os.getenv("OPENROUTER_API_KEY")
+            if not api_key:
+                raise ValueError("OpenRouter API key not found. Get free key at: https://openrouter.ai/keys")
+            model = os.getenv("OPENROUTER_MODEL", "meta-llama/llama-3.2-3b-instruct:free")
+            return OpenRouterProvider(api_key, model)
+        
+        elif provider == "groq":
+            api_key = os.getenv("GROQ_API_KEY")
+            if not api_key:
+                raise ValueError("Groq API key not found. Get free key at: https://console.groq.com/keys")
+            model = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
+            return GroqProvider(api_key, model)
+        
+        elif provider == "huggingface":
+            api_key = os.getenv("HUGGINGFACE_API_KEY")
+            if not api_key:
+                raise ValueError("HuggingFace API key not found. Get free key at: https://huggingface.co/settings/tokens")
+            model = os.getenv("HUGGINGFACE_MODEL", "mistralai/Mixtral-8x7B-Instruct-v0.1")
+            return HuggingFaceProvider(api_key, model)
+        
         else:
-            raise ValueError(f"Unsupported provider: {provider}")
+            raise ValueError(f"Unsupported provider: {provider}. Options: openai, anthropic, openrouter, groq, huggingface")
     
     def generate_market_analysis(self, business_data: Dict[str, Any]) -> str:
         """Generate market analysis section"""
