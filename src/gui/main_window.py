@@ -290,8 +290,6 @@ class BusinessPlanGeneratorApp(ctk.CTk):
             corner_radius=15
         )
         generate_btn.grid(row=len(fields)*2+6, column=0, padx=10, pady=20)
-        )
-        generate_btn.grid(row=len(fields)*2+4, column=0, padx=10, pady=30, sticky="ew")
         
         scroll_frame.grid_columnconfigure(0, weight=1)
     
