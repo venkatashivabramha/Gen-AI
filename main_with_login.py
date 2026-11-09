@@ -1,4 +1,4 @@
-"""
+﻿"""
 Main Entry Point with Authentication
 Wrapper that adds login BEFORE your existing app - NO code changes needed!
 
@@ -55,17 +55,37 @@ def handle_login_success(user):
         import builtins
         builtins.CURRENT_USER = user
         
-        # Import your existing main app
-        from main import main as run_original_app
+        # Import your existing main app (FIXED: correct path to src/)
+        from src.main import main as run_original_app
+        
+        print("✓ Successfully imported main application")
         
         # Run it!
         run_original_app()
         
-    except ImportError:
-        # If main.py doesn't have a main() function, run it directly
-        print("Starting GUI application...")
-        import subprocess
-        subprocess.run([sys.executable, "src/main.py"])
+    except ImportError as e:
+        print(f"\n❌ Error: Could not import main application")
+        print(f"   Details: {e}")
+        print(f"\nTrying alternative launch method...")
+        
+        # Fallback: run main.py directly
+        try:
+            import subprocess
+            subprocess.run([sys.executable, "src/main.py"])
+        except Exception as e2:
+            print(f"\n❌ Alternative launch also failed: {e2}")
+            print(f"\nPlease try running directly:")
+            print(f"   python src/main.py")
+            input("\nPress Enter to exit...")
+    
+    except Exception as e:
+        print(f"\n❌ Unexpected error launching application:")
+        print(f"   {e}")
+        print(f"\nPlease try running directly:")
+        print(f"   python src/main.py")
+        import traceback
+        traceback.print_exc()
+        input("\nPress Enter to exit...")
 
 
 if __name__ == "__main__":
