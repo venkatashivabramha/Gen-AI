@@ -32,3 +32,7 @@ kaleido==0.2.1
 chromadb==0.4.22
 sentence-transformers==2.3.1
 faiss-cpu==1.7.4
+
+
+# Real Market Data (FREE)
+yfinance==1.8.0

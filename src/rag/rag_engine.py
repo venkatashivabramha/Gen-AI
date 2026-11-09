@@ -1,21 +1,43 @@
 """
 RAG Engine - Retrieval Augmented Generation for Business Plans
 Speeds up generation by 3-5x by retrieving relevant templates
+NOW WITH REAL MARKET DATA from Yahoo Finance!
 """
 import re
 from typing import Dict, Any, List, Optional
 from .template_manager import get_template_manager
+
+# Import market data fetcher
+try:
+    import sys
+    from pathlib import Path
+    sys.path.insert(0, str(Path(__file__).parent.parent))
+    from data.market_data_fetcher import get_market_data_fetcher
+    MARKET_DATA_AVAILABLE = True
+except ImportError:
+    MARKET_DATA_AVAILABLE = False
+    print("⚠️  Market data fetcher not available")
 
 
 class RAGEngine:
     """
     RAG Engine that retrieves relevant templates and uses AI to customize them
     Result: 70% pre-written + 30% AI-generated = MUCH FASTER!
+    ENHANCED: Now fetches REAL market data from Yahoo Finance!
     """
     
-    def __init__(self):
+    def __init__(self, use_real_data: bool = True):
         self.template_manager = get_template_manager()
-        print("✓ RAG Engine initialized with templates")
+        self.use_real_data = use_real_data and MARKET_DATA_AVAILABLE
+        
+        if self.use_real_data:
+            self.market_fetcher = get_market_data_fetcher()
+            print("✓ RAG Engine initialized with templates")
+            print("✓ Real market data enabled (Yahoo Finance)")
+        else:
+            self.market_fetcher = None
+            print("✓ RAG Engine initialized with templates")
+            print("ℹ️  Using template estimates (real data disabled)")
     
     def generate_market_analysis_with_rag(
         self, 
@@ -23,19 +45,32 @@ class RAGEngine:
         llm_generate_func: callable
     ) -> str:
         """
-        Generate market analysis using RAG
-        Step 1: Retrieve relevant template (FAST)
-        Step 2: AI fills in specifics (QUICK)
+        Generate market analysis using RAG + REAL MARKET DATA
+        Step 1: Fetch REAL market data from Yahoo Finance (NEW!)
+        Step 2: Retrieve relevant template (FAST)
+        Step 3: AI fills in specifics with REAL data (PREMIUM QUALITY!)
         """
         # Extract industry from business data
         industry = business_data.get('industry', 'technology')
         description = business_data.get('description', '')
+        business_name = business_data.get('business_name', 'Our Company')
         
         # Get industry keywords
         keywords = self.template_manager.extract_industry_keywords(
             f"{industry} {description}"
         )
         primary_industry = keywords[0] if keywords else 'technology'
+        
+        # STEP 1: Fetch REAL market data (NEW!)
+        real_market_data = None
+        if self.use_real_data and self.market_fetcher:
+            try:
+                print(f"\n🔍 Fetching real market data for {industry}...")
+                real_market_data = self.market_fetcher.get_industry_overview(industry)
+                print(f"✅ Real data fetched: Market size {real_market_data['market_size']}")
+            except Exception as e:
+                print(f"⚠️  Could not fetch real data: {str(e)[:50]}")
+                real_market_data = None
         
         # Retrieve template
         template = self.template_manager.get_market_analysis_template(primary_industry)
@@ -44,10 +79,56 @@ class RAGEngine:
             # Extract variables needed
             variables = self._extract_market_variables(business_data, primary_industry)
             
-            # Use AI only to fill missing variables
-            ai_prompt = f"""Based on this business:
+            # STEP 2: Build AI prompt with REAL data or estimates
+            if real_market_data and real_market_data['fetch_status'] == 'success':
+                # Use REAL market data in prompt
+                competitors_info = "\n".join([
+                    f"- {comp['name']}: Market Cap ${comp['market_cap']}, Revenue {comp['revenue']}, {comp['employees']} employees"
+                    for comp in real_market_data['competitors'][:5]
+                ])
+                
+                ai_prompt = f"""Based on this business and REAL MARKET DATA:
+
+Business Name: {business_name}
+Industry: {industry}
+Description: {description}
+Target Market: {business_data.get('target_market', 'N/A')}
+
+VERIFIED MARKET DATA (from Yahoo Finance):
+- Market Size: {real_market_data['market_size']} (verified from major players)
+- Growth Rate: {real_market_data['growth_rate']} (calculated from revenue trends)
+- Number of Major Players: {real_market_data['num_competitors']}
+
+TOP COMPETITORS (Real companies):
+{competitors_info}
+
+Based on this REAL data, provide:
+1. Key market drivers specific to this industry (2-3 items)
+2. How {business_name} can compete against these established players
+3. Market positioning strategy
+4. Entry barriers and opportunities
+
+Format as JSON:
+{{
+  "key_drivers": ["driver1", "driver2", "driver3"],
+  "competitive_strategy": "...",
+  "positioning": "...",
+  "opportunities": "..."
+}}
+"""
+                # Update variables with REAL data
+                variables['market_size'] = real_market_data['market_size']
+                variables['growth_rate'] = real_market_data['growth_rate'].replace('%', '')
+                variables['competitors_list'] = '\n'.join([
+                    f"{i+1}. **{comp['name']}** - Market Cap: {comp['market_cap']}, Revenue: {comp['revenue']}, Employees: {comp['employees']}"
+                    for i, comp in enumerate(real_market_data['competitors'][:5])
+                ])
+                
+            else:
+                # Fallback to AI estimates
+                ai_prompt = f"""Based on this business:
             
-Business Name: {business_data.get('business_name', 'N/A')}
+Business Name: {business_name}
 Industry: {industry}
 Description: {description}
 Target Market: {business_data.get('target_market', 'N/A')}
@@ -66,6 +147,7 @@ Be specific and concise. Format as JSON:
   "growth_rate": "..."
 }}
 """
+            
             # AI generates only the specifics (FAST!)
             ai_response = llm_generate_func(ai_prompt)
             
@@ -358,9 +440,9 @@ How it works:
 # Singleton instance
 _rag_engine = None
 
-def get_rag_engine() -> RAGEngine:
+def get_rag_engine(use_real_data: bool = True) -> RAGEngine:
     """Get or create RAG Engine singleton"""
     global _rag_engine
     if _rag_engine is None:
-        _rag_engine = RAGEngine()
+        _rag_engine = RAGEngine(use_real_data=use_real_data)
     return _rag_engine

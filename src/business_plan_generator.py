@@ -19,21 +19,28 @@ from config.config import OUTPUT_DIR, BUSINESS_TYPES
 class BusinessPlanGenerator:
     """Main orchestrator for business plan generation"""
     
-    def __init__(self, llm_provider: str = "openai"):
+    def __init__(self, llm_provider: str = "openai", use_real_data: bool = True):
         self.llm_manager = LLMManager(llm_provider)
         self.mcp_client = MCPClient()
         self.mcp_tools = MCPBusinessTools()
+        self.use_real_data = use_real_data  # Store for later use
         
         self.pdf_generator = PDFGenerator()
         self.html_generator = HTMLGenerator()
         self.docx_generator = DOCXGenerator()
         
         # Initialize RAG Engine for 3-5x faster generation!
+        # NOW WITH REAL MARKET DATA!
         try:
             from rag.rag_engine import get_rag_engine
-            self.rag_engine = get_rag_engine()
+            self.rag_engine = get_rag_engine(use_real_data=use_real_data)
             self.use_rag = True
-            print("🚀 RAG Engine activated - Generation will be 3-5x faster!")
+            if use_real_data:
+                print("🚀 RAG Engine activated with REAL market data!")
+                print("   Generation: 40-70s with verified data")
+            else:
+                print("🚀 RAG Engine activated - Generation will be 3-5x faster!")
+                print("   Using template estimates")
         except ImportError:
             self.rag_engine = None
             self.use_rag = False

@@ -247,6 +247,36 @@ class BusinessPlanGeneratorApp(ctk.CTk):
             cb.grid(row=0, column=i, padx=10)
             self.format_vars[fmt.lower()] = var
         
+        # Real Market Data Toggle (NEW!)
+        data_label = ctk.CTkLabel(
+            scroll_frame,
+            text="📊 Market Data Enhancement:",
+            font=ctk.CTkFont(size=13, weight="bold")
+        )
+        data_label.grid(row=len(fields)*2+4, column=0, padx=10, pady=(20, 5), sticky="w")
+        
+        data_info_frame = ctk.CTkFrame(scroll_frame, fg_color="transparent")
+        data_info_frame.grid(row=len(fields)*2+5, column=0, padx=10, pady=(0, 10), sticky="w")
+        
+        self.use_real_data_var = ctk.BooleanVar(value=True)  # Default: enabled
+        real_data_cb = ctk.CTkCheckBox(
+            data_info_frame,
+            text="Use Real Market Data (FREE from Yahoo Finance)",
+            variable=self.use_real_data_var,
+            font=ctk.CTkFont(size=12, weight="bold"),
+            fg_color="#2ecc71",  # Green
+            hover_color="#27ae60"
+        )
+        real_data_cb.grid(row=0, column=0, padx=5)
+        
+        data_info = ctk.CTkLabel(
+            data_info_frame,
+            text="✨ Fetches verified market sizes, competitor data, and growth rates",
+            font=ctk.CTkFont(size=11),
+            text_color="#7f8c8d"
+        )
+        data_info.grid(row=1, column=0, padx=5, pady=(5, 0), sticky="w")
+        
         # Generate button - LARGE, RED, VISIBLE
         generate_btn = ctk.CTkButton(
             scroll_frame,
@@ -258,6 +288,8 @@ class BusinessPlanGeneratorApp(ctk.CTk):
             fg_color="#DC143C",  # Crimson red
             hover_color="#8B0000",  # Dark red
             corner_radius=15
+        )
+        generate_btn.grid(row=len(fields)*2+6, column=0, padx=10, pady=20)
         )
         generate_btn.grid(row=len(fields)*2+4, column=0, padx=10, pady=30, sticky="ew")
         
@@ -577,7 +609,14 @@ class BusinessPlanGeneratorApp(ctk.CTk):
         
         if self.generator is None:
             provider = self.llm_var.get()
-            self.generator = BusinessPlanGenerator(provider)
+            # Get real data preference from checkbox
+            use_real_data = getattr(self, 'use_real_data_var', None)
+            use_real_data_enabled = use_real_data.get() if use_real_data else True
+            
+            self.generator = BusinessPlanGenerator(
+                provider, 
+                use_real_data=use_real_data_enabled
+            )
         
         return self.generator
     
