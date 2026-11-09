@@ -1,0 +1,51 @@
+{
+  "name": "Technology Startup Template",
+  "description": "Template for technology startups and software companies",
+  "fields": {
+    "business_type": "Technology Startup",
+    "industry": "Technology / Software",
+    "typical_products": [
+      "SaaS platforms",
+      "Mobile applications",
+      "Enterprise software",
+      "Developer tools",
+      "AI/ML solutions"
+    ],
+    "target_markets": [
+      "Enterprise businesses",
+      "SMBs",
+      "Developers",
+      "Consumers",
+      "Specific industry verticals"
+    ],
+    "revenue_models": [
+      "Subscription (SaaS)",
+      "Freemium",
+      "Enterprise licensing",
+      "Usage-based pricing",
+      "Marketplace commission"
+    ],
+    "typical_investments": {
+      "seed": "$50,000 - $500,000",
+      "series_a": "$2M - $15M",
+      "development": "$100,000 - $1M",
+      "marketing": "$50,000 - $500,000"
+    },
+    "key_metrics": [
+      "Monthly Recurring Revenue (MRR)",
+      "Customer Acquisition Cost (CAC)",
+      "Lifetime Value (LTV)",
+      "Churn Rate",
+      "Active Users",
+      "Conversion Rate"
+    ],
+    "innovation_areas": [
+      "AI/Machine Learning integration",
+      "Cloud-native architecture",
+      "Mobile-first approach",
+      "API-first design",
+      "Blockchain integration",
+      "IoT connectivity"
+    ]
+  }
+}
