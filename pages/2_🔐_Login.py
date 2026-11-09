@@ -1,4 +1,4 @@
-﻿"""
+"""
 Authentication Page
 Login and signup functionality with MongoDB
 """
@@ -9,7 +9,22 @@ from pymongo import MongoClient
 from datetime import datetime
 import os
 
-st.set_page_config(page_title="Login", page_icon="🔐", layout="centered")
+st.set_page_config(page_title="Login", page_icon="??", layout="centered")
+
+# Initialize session state BEFORE accessing it
+if 'authenticated' not in st.session_state:
+    st.session_state.authenticated = False
+if 'user_email' not in st.session_state:
+    st.session_state.user_email = None
+if 'is_admin' not in st.session_state:
+    st.session_state.is_admin = False
+# Initialize session state BEFORE accessing it
+if 'authenticated' not in st.session_state:
+    st.session_state.authenticated = False
+if 'user_email' not in st.session_state:
+    st.session_state.user_email = None
+if 'is_admin' not in st.session_state:
+    st.session_state.is_admin = False
 
 # MongoDB connection
 @st.cache_resource
@@ -18,7 +33,7 @@ def get_db_connection():
     mongodb_uri = os.getenv('MONGODB_URI', st.secrets.get('MONGODB_URI', ''))
     
     if not mongodb_uri:
-        st.error("⚠️ MongoDB URI not configured. Please set MONGODB_URI in secrets.")
+        st.error("?? MongoDB URI not configured. Please set MONGODB_URI in secrets.")
         return None
     
     try:
@@ -88,18 +103,18 @@ def login_user(db, email, password):
     return False, "Invalid password"
 
 # Main UI
-st.title("🔐 Authentication")
+st.title("?? Authentication")
 
 # Check if already logged in
 if st.session_state.get('authenticated', False):
-    st.success(f"✅ You're logged in as {st.session_state.get('user_email', 'Unknown')}")
+    st.success(f"? You're logged in as {st.session_state.get('user_email', 'Unknown')}")
     
     col1, col2 = st.columns(2)
     with col1:
-        if st.button("Go to Generator 📝", use_container_width=True):
-            st.switch_page("pages/1_📝_Generate.py")
+        if st.button("Go to Generator ??", use_container_width=True):
+            st.switch_page("pages/1_??_Generate.py")
     with col2:
-        if st.button("Logout 🚪", use_container_width=True):
+        if st.button("Logout ??", use_container_width=True):
             st.session_state.authenticated = False
             st.session_state.user_email = None
             st.session_state.is_admin = False
@@ -108,7 +123,7 @@ if st.session_state.get('authenticated', False):
     st.stop()
 
 # Login/Signup tabs
-tab1, tab2 = st.tabs(["🔑 Login", "✍️ Sign Up"])
+tab1, tab2 = st.tabs(["?? Login", "?? Sign Up"])
 
 # Get database connection
 db = get_db_connection()
@@ -130,7 +145,7 @@ with tab1:
                 st.session_state.authenticated = True
                 st.session_state.user_email = email
                 st.session_state.is_admin = False
-                st.success("✅ Logged in (Demo Mode)")
+                st.success("? Logged in (Demo Mode)")
                 st.rerun()
             else:
                 success, result = login_user(db, email, password)
@@ -138,10 +153,10 @@ with tab1:
                     st.session_state.authenticated = True
                     st.session_state.user_email = email
                     st.session_state.is_admin = result.get('is_admin', False)
-                    st.success("✅ Login successful!")
+                    st.success("? Login successful!")
                     st.rerun()
                 else:
-                    st.error(f"❌ {result}")
+                    st.error(f"? {result}")
 
 with tab2:
     st.header("Create New Account")
@@ -173,18 +188,18 @@ with tab2:
                 st.session_state.authenticated = True
                 st.session_state.user_email = email
                 st.session_state.is_admin = False
-                st.success("✅ Account created (Demo Mode)")
+                st.success("? Account created (Demo Mode)")
                 st.rerun()
             else:
                 success, message = create_user(db, email, password, full_name)
                 if success:
-                    st.success(f"✅ {message} You can now login.")
+                    st.success(f"? {message} You can now login.")
                 else:
-                    st.error(f"❌ {message}")
+                    st.error(f"? {message}")
 
 # Demo mode notice
 st.markdown("---")
-with st.expander("🔧 Database Configuration"):
+with st.expander("?? Database Configuration"):
     st.markdown("""
     ### MongoDB Atlas Setup (FREE)
     
