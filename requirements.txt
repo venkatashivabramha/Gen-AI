@@ -7,7 +7,7 @@ anthropic==0.39.0
 groq==0.11.0
 
 # Document Generation
-reportlab==5.1.0
+reportlab==4.2.5
 python-docx==1.2.0
 Jinja2==3.1.6
 markdown==3.5.2
@@ -17,16 +17,14 @@ xhtml2pdf==0.2.16
 pandas==2.2.0
 numpy==1.26.3
 
-# GUI (Desktop version)
-customtkinter==6.0.0
+# GUI (Desktop version only - not used in web)
+# customtkinter==6.0.0
 
-# Web Framework (NEW - for Streamlit deployment)
+# Web Framework (for Streamlit deployment)
 streamlit==1.39.0
-streamlit-authenticator==0.3.3
 
-# Database (NEW - MongoDB for web version)
+# Database (MongoDB for web version)
 pymongo==4.10.1
-pymongo[srv]==4.10.1
 bcrypt==4.2.1
 
 # Utilities
