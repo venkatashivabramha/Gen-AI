@@ -343,6 +343,62 @@ class MarketDataFetcher:
         }
 
 
+
+    def get_detailed_financial_metrics(self, ticker: str) -> Dict[str, Any]:
+        """
+        Get detailed financial metrics for a ticker (margins, ROE, etc.)
+        
+        Args:
+            ticker: Stock ticker symbol
+        
+        Returns:
+            Dictionary with financial metrics
+        """
+        try:
+            company = yf.Ticker(ticker)
+            info = company.info
+            
+            return {
+                'ticker': ticker,
+                'grossMargins': info.get('grossMargins'),
+                'operatingMargins': info.get('operatingMargins'),
+                'profitMargins': info.get('profitMargins'),
+                'returnOnEquity': info.get('returnOnEquity'),
+                'revenueGrowth': info.get('revenueGrowth')
+            }
+        except Exception as e:
+            return {'ticker': ticker, 'error': str(e)}
+    
+    def get_historical_price_data(self, ticker: str, period: str = "1y") -> Dict[str, Any]:
+        """
+        Get historical price data for trend analysis
+        
+        Args:
+            ticker: Stock ticker symbol
+            period: Time period (e.g., "1y", "6mo", "3mo")
+        
+        Returns:
+            Dictionary with price trend data
+        """
+        try:
+            company = yf.Ticker(ticker)
+            hist = company.history(period=period)
+            
+            if hist.empty:
+                return {'ticker': ticker, 'error': 'No historical data available'}
+            
+            price_change = ((hist['Close'][-1] - hist['Close'][0]) / hist['Close'][0]) * 100
+            
+            return {
+                'ticker': ticker,
+                'price_change_pct': round(price_change, 2),
+                'trend': 'Bullish' if price_change > 0 else 'Bearish',
+                'volatility': round(hist['Close'].std(), 2),
+                'period': period
+            }
+        except Exception as e:
+            return {'ticker': ticker, 'error': str(e)}
+
 # Singleton instance
 _fetcher = None
 

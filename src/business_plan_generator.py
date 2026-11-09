@@ -21,6 +21,10 @@ class BusinessPlanGenerator:
     
     def __init__(self, llm_provider: str = "openai", use_real_data: bool = True):
         self.llm_manager = LLMManager(llm_provider)
+        
+        # MCP Client - provides real-time market data enhancement
+        # When MCP_ENABLED=true: coordinates data through MarketDataFetcher singleton
+        # When MCP_ENABLED=false: RAG engine uses MarketDataFetcher directly (backward compatible)
         self.mcp_client = MCPClient()
         self.mcp_tools = MCPBusinessTools()
         self.use_real_data = use_real_data  # Store for later use
@@ -51,11 +55,25 @@ class BusinessPlanGenerator:
         """Generate business plan from form data"""
         
         print("Generating business plan from form data...")
+        print("=" * 70)
         
         # Enhance with MCP data if available
         if self.mcp_client.is_available():
+            print("📊 MCP Integration: ENABLED")
+            print("🔄 Data Flow: MCP → MarketDataFetcher → Yahoo Finance")
+            print("   - MCPClient acts as coordination layer")
+            print("   - All market data fetched through unified singleton")
+            print("   - Real-time financial data enhancement active")
             form_data = self.mcp_client.enhance_business_plan(form_data)
-            print("Enhanced with MCP data")
+            print("✅ Enhanced with MCP real-time data")
+        else:
+            print("📊 MCP Integration: DISABLED")
+            print("🔄 Data Flow: RAG → MarketDataFetcher → Yahoo Finance")
+            print("   - Direct RAG engine market analysis")
+            print("   - Market data fetched through singleton for consistency")
+            print("   - MCP enhancement bypassed")
+        
+        print("=" * 70)
         
         # Generate sections using AI
         sections = self._generate_all_sections(form_data)

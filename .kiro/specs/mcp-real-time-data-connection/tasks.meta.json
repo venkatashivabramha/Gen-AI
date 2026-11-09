@@ -1,0 +1,143 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1. Write bug condition exploration test": [
+      {
+        "executionId": "4892f396-135d-45f5-9b4d-c842badf2de4",
+        "chatSessionId": "sess_0496d35a-3f93-4524-96df-d839c4cc8a10",
+        "timestamp": 1794246412720
+      },
+      {
+        "executionId": "4892f396-135d-45f5-9b4d-c842badf2de4",
+        "chatSessionId": "sess_0496d35a-3f93-4524-96df-d839c4cc8a10",
+        "timestamp": 1794246426657
+      },
+      {
+        "executionId": "4892f396-135d-45f5-9b4d-c842badf2de4",
+        "chatSessionId": "sess_0496d35a-3f93-4524-96df-d839c4cc8a10",
+        "timestamp": 1794246843333
+      }
+    ],
+    "2. Write preservation property tests (BEFORE implementing fix)": [
+      {
+        "executionId": "4892f396-135d-45f5-9b4d-c842badf2de4",
+        "chatSessionId": "sess_0496d35a-3f93-4524-96df-d839c4cc8a10",
+        "timestamp": 1794246412990
+      },
+      {
+        "executionId": "4892f396-135d-45f5-9b4d-c842badf2de4",
+        "chatSessionId": "sess_0496d35a-3f93-4524-96df-d839c4cc8a10",
+        "timestamp": 1794246849880
+      },
+      {
+        "executionId": "4892f396-135d-45f5-9b4d-c842badf2de4",
+        "chatSessionId": "sess_0496d35a-3f93-4524-96df-d839c4cc8a10",
+        "timestamp": 1794247502027
+      }
+    ],
+    "3.1 Refactor MCPClient to use MarketDataFetcher singleton": [
+      {
+        "executionId": "4892f396-135d-45f5-9b4d-c842badf2de4",
+        "chatSessionId": "sess_0496d35a-3f93-4524-96df-d839c4cc8a10",
+        "timestamp": 1794246413101
+      },
+      {
+        "executionId": "4892f396-135d-45f5-9b4d-c842badf2de4",
+        "chatSessionId": "sess_0496d35a-3f93-4524-96df-d839c4cc8a10",
+        "timestamp": 1794247527586
+      },
+      {
+        "executionId": "0779e567-a158-41d5-a07c-55a0fc334304",
+        "chatSessionId": "sess_0496d35a-3f93-4524-96df-d839c4cc8a10",
+        "timestamp": 1794248852709
+      }
+    ],
+    "3.2 Enable MCP integration in environment configuration": [
+      {
+        "executionId": "4892f396-135d-45f5-9b4d-c842badf2de4",
+        "chatSessionId": "sess_0496d35a-3f93-4524-96df-d839c4cc8a10",
+        "timestamp": 1794246413195
+      },
+      {
+        "executionId": "4892f396-135d-45f5-9b4d-c842badf2de4",
+        "chatSessionId": "sess_0496d35a-3f93-4524-96df-d839c4cc8a10",
+        "timestamp": 1794247537959
+      },
+      {
+        "executionId": "0779e567-a158-41d5-a07c-55a0fc334304",
+        "chatSessionId": "sess_0496d35a-3f93-4524-96df-d839c4cc8a10",
+        "timestamp": 1794248855784
+      }
+    ],
+    "3.3 Verify MCPClient integration in business plan generator": [
+      {
+        "executionId": "4892f396-135d-45f5-9b4d-c842badf2de4",
+        "chatSessionId": "sess_0496d35a-3f93-4524-96df-d839c4cc8a10",
+        "timestamp": 1794246413294
+      },
+      {
+        "executionId": "4892f396-135d-45f5-9b4d-c842badf2de4",
+        "chatSessionId": "sess_0496d35a-3f93-4524-96df-d839c4cc8a10",
+        "timestamp": 1794247544247
+      },
+      {
+        "executionId": "0779e567-a158-41d5-a07c-55a0fc334304",
+        "chatSessionId": "sess_0496d35a-3f93-4524-96df-d839c4cc8a10",
+        "timestamp": 1794248855931
+      }
+    ],
+    "3.4 Verify bug condition exploration test now passes": [
+      {
+        "executionId": "4892f396-135d-45f5-9b4d-c842badf2de4",
+        "chatSessionId": "sess_0496d35a-3f93-4524-96df-d839c4cc8a10",
+        "timestamp": 1794246413426
+      },
+      {
+        "executionId": "0779e567-a158-41d5-a07c-55a0fc334304",
+        "chatSessionId": "sess_0496d35a-3f93-4524-96df-d839c4cc8a10",
+        "timestamp": 1794248866551
+      },
+      {
+        "executionId": "0779e567-a158-41d5-a07c-55a0fc334304",
+        "chatSessionId": "sess_0496d35a-3f93-4524-96df-d839c4cc8a10",
+        "timestamp": 1794248866894
+      }
+    ],
+    "3.5 Verify preservation tests still pass": [
+      {
+        "executionId": "4892f396-135d-45f5-9b4d-c842badf2de4",
+        "chatSessionId": "sess_0496d35a-3f93-4524-96df-d839c4cc8a10",
+        "timestamp": 1794246413543
+      },
+      {
+        "executionId": "0779e567-a158-41d5-a07c-55a0fc334304",
+        "chatSessionId": "sess_0496d35a-3f93-4524-96df-d839c4cc8a10",
+        "timestamp": 1794248867724
+      },
+      {
+        "executionId": "0779e567-a158-41d5-a07c-55a0fc334304",
+        "chatSessionId": "sess_0496d35a-3f93-4524-96df-d839c4cc8a10",
+        "timestamp": 1794248868495
+      }
+    ],
+    "4. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "4892f396-135d-45f5-9b4d-c842badf2de4",
+        "chatSessionId": "sess_0496d35a-3f93-4524-96df-d839c4cc8a10",
+        "timestamp": 1794246413659
+      },
+      {
+        "executionId": "0779e567-a158-41d5-a07c-55a0fc334304",
+        "chatSessionId": "sess_0496d35a-3f93-4524-96df-d839c4cc8a10",
+        "timestamp": 1794248869513
+      }
+    ],
+    "3. Fix for MCP redundant API calls": [
+      {
+        "executionId": "0779e567-a158-41d5-a07c-55a0fc334304",
+        "chatSessionId": "sess_0496d35a-3f93-4524-96df-d839c4cc8a10",
+        "timestamp": 1794248868579
+      }
+    ]
+  }
+}
