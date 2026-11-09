@@ -62,93 +62,93 @@ if mode == "?? Form Input":
     st.header("Fill in Your Business Details")
     
     # Form removed to allow download buttons
-        col1, col2 = st.columns(2)
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        business_name = st.text_input("Business Name *", placeholder="e.g., TechVision AI")
+        industry = st.text_input("Industry *", placeholder="e.g., Technology - AI")
+        business_type = st.text_input("Business Type", placeholder="e.g., SaaS Startup")
+        location = st.text_input("Location", placeholder="e.g., San Francisco, CA")
         
-        with col1:
-            business_name = st.text_input("Business Name *", placeholder="e.g., TechVision AI")
-            industry = st.text_input("Industry *", placeholder="e.g., Technology - AI")
-            business_type = st.text_input("Business Type", placeholder="e.g., SaaS Startup")
-            location = st.text_input("Location", placeholder="e.g., San Francisco, CA")
+    with col2:
+        revenue_model = st.text_input("Revenue Model", placeholder="e.g., Subscription-based")
+        initial_investment = st.text_input("Initial Investment", placeholder="e.g., $150,000")
+        innovation_focus = st.text_area("Innovation Focus", placeholder="Key innovations...")
+    
+    target_market = st.text_area(
+        "Target Market *",
+        placeholder="Describe your target customers, market size, demographics..."
+    )
+    
+    products_services = st.text_area(
+        "Products/Services *",
+        placeholder="List your main products or services..."
+    )
+    
+    description = st.text_area(
+        "Business Description *",
+        placeholder="Provide a comprehensive description of your business...",
+        height=150
+    )
+    
+    submitted = st.button("?? Generate Business Plan", use_container_width=True, type="primary")
+    
+    if submitted:
+        if not business_name or not industry or not target_market or not description:
+            st.error("Please fill in all required fields (*)")
+        else:
+            # Collect formats
+            formats = []
+            if format_pdf: formats.append("pdf")
+            if format_docx: formats.append("docx")
+            if format_html: formats.append("html")
+            if format_md: formats.append("md")
             
-        with col2:
-            revenue_model = st.text_input("Revenue Model", placeholder="e.g., Subscription-based")
-            initial_investment = st.text_input("Initial Investment", placeholder="e.g., $150,000")
-            innovation_focus = st.text_area("Innovation Focus", placeholder="Key innovations...")
-        
-        target_market = st.text_area(
-            "Target Market *",
-            placeholder="Describe your target customers, market size, demographics..."
-        )
-        
-        products_services = st.text_area(
-            "Products/Services *",
-            placeholder="List your main products or services..."
-        )
-        
-        description = st.text_area(
-            "Business Description *",
-            placeholder="Provide a comprehensive description of your business...",
-            height=150
-        )
-        
-        submitted = st.button("?? Generate Business Plan", use_container_width=True, type="primary")
-        
-        if submitted:
-            if not business_name or not industry or not target_market or not description:
-                st.error("Please fill in all required fields (*)")
+            if not formats:
+                st.error("Please select at least one output format")
             else:
-                # Collect formats
-                formats = []
-                if format_pdf: formats.append("pdf")
-                if format_docx: formats.append("docx")
-                if format_html: formats.append("html")
-                if format_md: formats.append("md")
-                
-                if not formats:
-                    st.error("Please select at least one output format")
-                else:
-                    with st.spinner("?? Generating your business plan... This may take 2-5 minutes..."):
-                        try:
-                            generator = get_generator(llm_provider, use_real_data)
+                with st.spinner("?? Generating your business plan... This may take 2-5 minutes..."):
+                    try:
+                        generator = get_generator(llm_provider, use_real_data)
+                        
+                        data = {
+                            'business_name': business_name,
+                            'industry': industry,
+                            'business_type': business_type,
+                            'location': location,
+                            'target_market': target_market,
+                            'products_services': products_services,
+                            'revenue_model': revenue_model,
+                            'initial_investment': initial_investment,
+                            'innovation_focus': innovation_focus,
+                            'description': description
+                        }
+                        
+                        result = generator.generate_from_form(data, formats)
+                        
+                        if result['status'] == 'success':
+                            st.success("? Business plan generated successfully!")
                             
-                            data = {
-                                'business_name': business_name,
-                                'industry': industry,
-                                'business_type': business_type,
-                                'location': location,
-                                'target_market': target_market,
-                                'products_services': products_services,
-                                'revenue_model': revenue_model,
-                                'initial_investment': initial_investment,
-                                'innovation_focus': innovation_focus,
-                                'description': description
-                            }
+                            # Display download buttons
+                            st.subheader("?? Download Your Business Plan")
                             
-                            result = generator.generate_from_form(data, formats)
+                            for fmt, filepath in result['files'].items():
+                                if os.path.exists(filepath):
+                                    with open(filepath, 'rb') as f:
+                                        file_data = f.read()
+                                        st.download_button(
+                                            label=f"Download {fmt.upper()}",
+                                            data=file_data,
+                                            file_name=os.path.basename(filepath),
+                                            mime=f"application/{fmt}",
+                                            key=f"download_{fmt}"
+                                        )
+                        else:
+                            st.error("? Generation failed. Please check your API keys and try again.")
                             
-                            if result['status'] == 'success':
-                                st.success("? Business plan generated successfully!")
-                                
-                                # Display download buttons
-                                st.subheader("?? Download Your Business Plan")
-                                
-                                for fmt, filepath in result['files'].items():
-                                    if os.path.exists(filepath):
-                                        with open(filepath, 'rb') as f:
-                                            file_data = f.read()
-                                            st.download_button(
-                                                label=f"Download {fmt.upper()}",
-                                                data=file_data,
-                                                file_name=os.path.basename(filepath),
-                                                mime=f"application/{fmt}",
-                                                key=f"download_{fmt}"
-                                            )
-                            else:
-                                st.error("? Generation failed. Please check your API keys and try again.")
-                                
-                        except Exception as e:
-                            st.error(f"An error occurred: {str(e)}")
-                            st.exception(e)
+                    except Exception as e:
+                        st.error(f"An error occurred: {str(e)}")
+                        st.exception(e)
 
 # AI Description Mode
 elif mode == "?? AI Description":
