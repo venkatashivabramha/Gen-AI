@@ -4,7 +4,6 @@ Manage users, approve signups, view activity, block/unblock users
 """
 
 import customtkinter as ctk
-import tkinter as tk
 from tkinter import messagebox, ttk
 import sqlite3
 from datetime import datetime
@@ -92,6 +91,18 @@ class AdminDashboard:
         )
         refresh_btn.pack(side="right", padx=5)
         
+        # Quick approve all button
+        approve_all_btn = ctk.CTkButton(
+            filter_frame,
+            text="✅ Approve All Pending",
+            width=180,
+            height=40,
+            fg_color="#27ae60",
+            hover_color="#229954",
+            command=self.approve_all_pending
+        )
+        approve_all_btn.pack(side="right", padx=5)
+        
         # User list frame
         list_frame = ctk.CTkFrame(self.root)
         list_frame.pack(fill="both", expand=True, padx=20, pady=10)
@@ -113,25 +124,15 @@ class AdminDashboard:
         for col in columns:
             self.tree.heading(col, text=col, anchor="center")
         
+        # Double-click to approve
+        self.tree.bind("<Double-Button-1>", self._on_double_click)
+        
         # Scrollbar
         scrollbar = ttk.Scrollbar(list_frame, orient="vertical", command=self.tree.yview)
         self.tree.configure(yscrollcommand=scrollbar.set)
         
         self.tree.pack(side="left", fill="both", expand=True)
         scrollbar.pack(side="right", fill="y")
-        
-        # Add right-click context menu
-        self.tree.bind("<Button-3>", self._show_context_menu)
-        
-        # Create context menu
-        self.context_menu = tk.Menu(self.tree, tearoff=0)
-        self.context_menu.add_command(label="✅ Approve User", command=self.approve_user)
-        self.context_menu.add_command(label="🚫 Block User", command=self.block_user)
-        self.context_menu.add_command(label="🔓 Unblock User", command=self.unblock_user)
-        self.context_menu.add_separator()
-        self.context_menu.add_command(label="📊 View Details", command=self.view_user_details)
-        self.context_menu.add_separator()
-        self.context_menu.add_command(label="🗑️ Delete User", command=self.delete_user)
         
         # Style the treeview
         style = ttk.Style()
@@ -221,13 +222,22 @@ class AdminDashboard:
         r, g, b = int(r * 0.8), int(g * 0.8), int(b * 0.8)
         return f'#{r:02x}{g:02x}{b:02x}'
     
-    def _show_context_menu(self, event):
-        """Show right-click context menu"""
-        # Select row under cursor
-        row_id = self.tree.identify_row(event.y)
-        if row_id:
-            self.tree.selection_set(row_id)
-            self.context_menu.post(event.x_root, event.y_root)
+    def _on_double_click(self, event):
+        """Handle double-click on user row"""
+        username = self.get_selected_username()
+        if username:
+            # Get current status
+            selection = self.tree.selection()
+            if selection:
+                item = self.tree.item(selection[0])
+                status = item['values'][2]
+                
+                if '⏳ Pending' in status:
+                    # Auto-approve pending users on double-click
+                    self.approve_user()
+                else:
+                    # Show details for other users
+                    self.view_user_details()
     
     def load_users(self):
         """Load all users from database"""
@@ -315,12 +325,74 @@ class AdminDashboard:
             conn = sqlite3.connect('data/users.db')
             cursor = conn.cursor()
             
+            # Check current status
+            cursor.execute("SELECT status FROM users WHERE username = ?", (username,))
+            result = cursor.fetchone()
+            
+            if not result:
+                messagebox.showerror("Error", f"User '{username}' not found!")
+                conn.close()
+                return
+            
+            current_status = result[0]
+            
+            if current_status == 'approved':
+                messagebox.showinfo("Info", f"User '{username}' is already approved!")
+                conn.close()
+                return
+            
+            # Update to approved
             cursor.execute("UPDATE users SET status = 'approved' WHERE username = ?", (username,))
             conn.commit()
+            
+            rows_affected = cursor.rowcount
             conn.close()
             
-            messagebox.showinfo("Success", f"User '{username}' has been approved!")
+            if rows_affected > 0:
+                messagebox.showinfo("✅ Success", f"User '{username}' has been approved!\n\nThey can now login to the application.")
+                print(f"✅ Approved user: {username}")
+                self.load_users()
+            else:
+                messagebox.showerror("Error", "Failed to update user status")
+            
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to approve user:\n{str(e)}")
+            import traceback
+            traceback.print_exc()
+    
+    def approve_all_pending(self):
+        """Approve all pending users at once"""
+        try:
+            conn = sqlite3.connect('data/users.db')
+            cursor = conn.cursor()
+            
+            # Get count of pending users
+            cursor.execute("SELECT COUNT(*) FROM users WHERE status = 'pending'")
+            pending_count = cursor.fetchone()[0]
+            
+            if pending_count == 0:
+                messagebox.showinfo("Info", "No pending users to approve!")
+                conn.close()
+                return
+            
+            # Confirm
+            if not messagebox.askyesno("Confirm Approve All", 
+                                      f"Approve all {pending_count} pending user(s)?"):
+                conn.close()
+                return
+            
+            # Approve all
+            cursor.execute("UPDATE users SET status = 'approved' WHERE status = 'pending'")
+            conn.commit()
+            rows_affected = cursor.rowcount
+            conn.close()
+            
+            messagebox.showinfo("✅ Success", f"Approved {rows_affected} user(s)!\n\nAll pending users can now login.")
+            print(f"✅ Approved {rows_affected} pending users")
             self.load_users()
+            
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to approve users:\n{str(e)}")
             
         except Exception as e:
             messagebox.showerror("Error", f"Failed to approve user: {str(e)}")
@@ -331,20 +403,30 @@ class AdminDashboard:
         if not username:
             return
         
-        if messagebox.askyesno("Confirm Block", f"Are you sure you want to block '{username}'?"):
-            try:
-                conn = sqlite3.connect('data/users.db')
-                cursor = conn.cursor()
-                
-                cursor.execute("UPDATE users SET status = 'blocked' WHERE username = ?", (username,))
-                conn.commit()
-                conn.close()
-                
-                messagebox.showinfo("Success", f"User '{username}' has been blocked!")
+        if not messagebox.askyesno("Confirm Block", f"Are you sure you want to block '{username}'?\n\nThey will not be able to login."):
+            return
+        
+        try:
+            conn = sqlite3.connect('data/users.db')
+            cursor = conn.cursor()
+            
+            cursor.execute("UPDATE users SET status = 'blocked' WHERE username = ?", (username,))
+            conn.commit()
+            
+            rows_affected = cursor.rowcount
+            conn.close()
+            
+            if rows_affected > 0:
+                messagebox.showinfo("🚫 Success", f"User '{username}' has been blocked!")
+                print(f"🚫 Blocked user: {username}")
                 self.load_users()
-                
-            except Exception as e:
-                messagebox.showerror("Error", f"Failed to block user: {str(e)}")
+            else:
+                messagebox.showerror("Error", "Failed to update user status")
+            
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to block user:\n{str(e)}")
+            import traceback
+            traceback.print_exc()
     
     def unblock_user(self):
         """Unblock a user"""
