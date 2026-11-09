@@ -1,4 +1,4 @@
-"""
+﻿"""
 LLM Manager for AI-powered content generation
 Supports OpenAI, Anthropic, OpenRouter, Groq, and other providers
 """
@@ -87,7 +87,7 @@ class OpenRouterProvider(BaseLLMProvider):
 class GroqProvider(BaseLLMProvider):
     """Groq API provider (FREE and FAST!)"""
     
-    def __init__(self, api_key: str, model: str = "llama-3.1-8b-instant"):
+    def __init__(self, api_key: str, model: str = "llama3-8b-8192"):
         if not OpenAI:
             raise ImportError("OpenAI package not installed. Run: pip install openai")
         # Groq uses OpenAI-compatible API
@@ -202,7 +202,7 @@ class LLMManager:
             api_key = os.getenv("GROQ_API_KEY")
             if not api_key:
                 raise ValueError("Groq API key not found. Get free key at: https://console.groq.com/keys")
-            model = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
+            model = os.getenv("GROQ_MODEL", "llama3-8b-8192")
             return GroqProvider(api_key, model)
         
         elif provider == "huggingface":
