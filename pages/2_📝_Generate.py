@@ -1,4 +1,4 @@
-﻿"""
+"""
 Business Plan Generator Page
 Main generation interface with form, AI, and template modes
 """
@@ -13,6 +13,14 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(__file__)), 'src
 from business_plan_generator import BusinessPlanGenerator
 
 st.set_page_config(page_title="Generate Business Plan", page_icon="??", layout="wide")
+
+# Initialize session state BEFORE accessing it
+if 'authenticated' not in st.session_state:
+    st.session_state.authenticated = False
+if 'user_email' not in st.session_state:
+    st.session_state.user_email = None
+if 'is_admin' not in st.session_state:
+    st.session_state.is_admin = False
 
 st.title("?? Generate Your Business Plan")
 
