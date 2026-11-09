@@ -30,12 +30,18 @@ def get_db_connection():
         return None
     
     try:
-        client = MongoClient(mongodb_uri, serverSelectionTimeoutMS=5000)
+        client = MongoClient(
+            mongodb_uri,
+            serverSelectionTimeoutMS=3000,
+            connectTimeoutMS=3000,
+            socketTimeoutMS=3000,
+            tlsAllowInvalidCertificates=False
+        )
         # Test connection
         client.admin.command('ping')
         return client['business_plan_generator']
-    except Exception as e:
-        st.error(f"Database connection error: {str(e)}")
+    except Exception:
+        # Silently return None - app will run in demo mode
         return None
 
 def validate_email(email):
