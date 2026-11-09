@@ -1,4 +1,4 @@
-"""
+﻿"""
 Business Plan Generator Page
 Main generation interface with form, AI, and template modes
 """
@@ -61,7 +61,7 @@ def get_generator(provider, use_data):
 if mode == "?? Form Input":
     st.header("Fill in Your Business Details")
     
-    with st.form("business_form"):
+    # Form removed to allow download buttons
         col1, col2 = st.columns(2)
         
         with col1:
@@ -91,7 +91,7 @@ if mode == "?? Form Input":
             height=150
         )
         
-        submitted = st.form_submit_button("?? Generate Business Plan", use_container_width=True)
+        submitted = st.button("?? Generate Business Plan", use_container_width=True, type="primary")
         
         if submitted:
             if not business_name or not industry or not target_market or not description:
