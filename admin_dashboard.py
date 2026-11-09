@@ -4,6 +4,7 @@ Manage users, approve signups, view activity, block/unblock users
 """
 
 import customtkinter as ctk
+import tkinter as tk
 from tkinter import messagebox, ttk
 import sqlite3
 from datetime import datetime
@@ -119,6 +120,19 @@ class AdminDashboard:
         self.tree.pack(side="left", fill="both", expand=True)
         scrollbar.pack(side="right", fill="y")
         
+        # Add right-click context menu
+        self.tree.bind("<Button-3>", self._show_context_menu)
+        
+        # Create context menu
+        self.context_menu = tk.Menu(self.tree, tearoff=0)
+        self.context_menu.add_command(label="✅ Approve User", command=self.approve_user)
+        self.context_menu.add_command(label="🚫 Block User", command=self.block_user)
+        self.context_menu.add_command(label="🔓 Unblock User", command=self.unblock_user)
+        self.context_menu.add_separator()
+        self.context_menu.add_command(label="📊 View Details", command=self.view_user_details)
+        self.context_menu.add_separator()
+        self.context_menu.add_command(label="🗑️ Delete User", command=self.delete_user)
+        
         # Style the treeview
         style = ttk.Style()
         style.theme_use("clam")
@@ -206,6 +220,14 @@ class AdminDashboard:
         r, g, b = tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
         r, g, b = int(r * 0.8), int(g * 0.8), int(b * 0.8)
         return f'#{r:02x}{g:02x}{b:02x}'
+    
+    def _show_context_menu(self, event):
+        """Show right-click context menu"""
+        # Select row under cursor
+        row_id = self.tree.identify_row(event.y)
+        if row_id:
+            self.tree.selection_set(row_id)
+            self.context_menu.post(event.x_root, event.y_root)
     
     def load_users(self):
         """Load all users from database"""
