@@ -1,22 +1,33 @@
-# Core dependencies
+﻿# Core dependencies
 python-dotenv==1.0.1
 
 # AI/LLM Integration
-openai==3.46.0
-anthropic==2.6.0
+openai==1.54.0
+anthropic==0.39.0
+groq==0.11.0
 
 # Document Generation
 reportlab==5.1.0
 python-docx==1.2.0
 Jinja2==3.1.6
 markdown==3.5.2
+xhtml2pdf==0.2.16
 
 # Data Processing
 pandas==2.2.0
 numpy==1.26.3
 
-# GUI
+# GUI (Desktop version)
 customtkinter==6.0.0
+
+# Web Framework (NEW - for Streamlit deployment)
+streamlit==1.39.0
+streamlit-authenticator==0.3.3
+
+# Database (NEW - MongoDB for web version)
+pymongo==4.10.1
+pymongo[srv]==4.10.1
+bcrypt==4.2.1
 
 # Utilities
 requests==2.31.0
@@ -33,6 +44,8 @@ chromadb==0.4.22
 sentence-transformers==2.3.1
 faiss-cpu==1.7.4
 
-
 # Real Market Data (FREE)
-yfinance==1.8.0
+yfinance==0.2.48
+
+# Additional for web deployment
+watchdog==3.0.0

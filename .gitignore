@@ -1,4 +1,4 @@
-# Python
+﻿# Python
 __pycache__/
 *.py[cod]
 *$py.class
@@ -25,10 +25,6 @@ venv/
 env/
 ENV/
 
-# Environment Variables
-.env
-.env.local
-
 # IDE
 .vscode/
 .idea/
@@ -36,19 +32,39 @@ ENV/
 *.swo
 *~
 
-# Output
+# Environment variables
+.env
+.env.local
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+
+# Output files
 output/
 *.pdf
 *.docx
 *.html
 
-# Logs
-*.log
-
 # OS
 .DS_Store
 Thumbs.db
 
-# Project specific
-data/business_templates/*.json
-config/local_config.py
+# Streamlit
+.streamlit/secrets.toml
+.streamlit/*_cache/
+
+# Deployment
+*.spec
+BusinessPlanGenerator.exe
+
+# Temporary files
+DEPLOYMENT_*.md
+QUICK_REFERENCE.txt
+CURRENT_STATUS.txt
+check_deployment.ps1
+live_test.py
