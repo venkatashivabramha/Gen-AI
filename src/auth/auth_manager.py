@@ -38,9 +38,16 @@ class AuthManager:
                 full_name TEXT,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 last_login TIMESTAMP,
-                is_active INTEGER DEFAULT 1
+                is_active INTEGER DEFAULT 1,
+                status TEXT DEFAULT 'pending'
             )
         ''')
+        
+        # Add status column if it doesn't exist (for existing databases)
+        try:
+            cursor.execute("ALTER TABLE users ADD COLUMN status TEXT DEFAULT 'pending'")
+        except sqlite3.OperationalError:
+            pass  # Column already exists
         
         # Create sessions table for "Remember Me" functionality
         cursor.execute('''
@@ -54,15 +61,17 @@ class AuthManager:
             )
         ''')
         
-        # Create user_stats table (optional - track usage)
-        cursor.execute('''
-            CREATE TABLE IF NOT EXISTS user_stats (
-                user_id INTEGER PRIMARY KEY,
-                plans_generated INTEGER DEFAULT 0,
-                last_plan_date TIMESTAMP,
-                FOREIGN KEY (user_id) REFERENCES users (id)
-            )
-        ''')
+        # Add business_plans_created column if it doesn't exist
+        try:
+            cursor.execute("ALTER TABLE users ADD COLUMN business_plans_created INTEGER DEFAULT 0")
+        except sqlite3.OperationalError:
+            pass  # Column already exists
+        
+        # Add last_plan_date column if it doesn't exist
+        try:
+            cursor.execute("ALTER TABLE users ADD COLUMN last_plan_date TIMESTAMP")
+        except sqlite3.OperationalError:
+            pass  # Column already exists
         
         conn.commit()
         conn.close()
@@ -128,17 +137,11 @@ class AuthManager:
             
             # Insert new user
             cursor.execute('''
-                INSERT INTO users (email, username, password_hash, salt, full_name)
-                VALUES (?, ?, ?, ?, ?)
+                INSERT INTO users (email, username, password_hash, salt, full_name, status)
+                VALUES (?, ?, ?, ?, ?, 'pending')
             ''', (email, username, password_hash, salt, full_name))
             
             user_id = cursor.lastrowid
-            
-            # Initialize user stats
-            cursor.execute('''
-                INSERT INTO user_stats (user_id, plans_generated)
-                VALUES (?, 0)
-            ''', (user_id,))
             
             conn.commit()
             conn.close()
@@ -177,7 +180,7 @@ class AuthManager:
             
             # Find user by email or username
             cursor.execute('''
-                SELECT id, email, username, password_hash, salt, full_name, is_active
+                SELECT id, email, username, password_hash, salt, full_name, is_active, status
                 FROM users
                 WHERE email = ? OR username = ?
             ''', (username_or_email, username_or_email))
@@ -191,7 +194,23 @@ class AuthManager:
                     'message': 'Invalid username/email or password'
                 }
             
-            user_id, email, username, stored_hash, salt, full_name, is_active = user
+            user_id, email, username, stored_hash, salt, full_name, is_active, status = user
+            
+            # Check if user is blocked
+            if status == 'blocked':
+                conn.close()
+                return {
+                    'success': False,
+                    'message': '🚫 Your account has been blocked. Please contact the administrator.'
+                }
+            
+            # Check if user is pending approval
+            if status == 'pending':
+                conn.close()
+                return {
+                    'success': False,
+                    'message': '⏳ Your account is pending approval. Please wait for admin approval.'
+                }
             
             if not is_active:
                 conn.close()

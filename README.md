@@ -91,6 +91,10 @@ An **AI-powered desktop application** for generating comprehensive, professional
 - **[Installation Guide](INSTALLATION.md)**: Detailed setup instructions
 - **[Usage Guide](USAGE_GUIDE.md)**: How to use all features
 - **[MCP Setup](MCP_SETUP.md)**: Model Context Protocol configuration
+- **[FREE API Guide](docs/FREE_API_GUIDE.md)**: Use FREE AI providers (Groq, OpenRouter, HuggingFace) ⭐
+- **[Authentication Guide](docs/AUTHENTICATION_GUIDE.md)**: Login/Signup system setup 🔐
+- **[Admin Dashboard Guide](docs/ADMIN_DASHBOARD_GUIDE.md)**: Manage users & approve signups 🔐
+- **[Deployment Guide](docs/DEPLOYMENT_GUIDE.md)**: Deploy to internet (FREE options) 🚀
 
 ## 🎯 Use Cases
 
